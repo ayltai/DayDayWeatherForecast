@@ -1,0 +1,54 @@
+name: CD
+on:
+  release:
+    types:
+      - created
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm i
+      - name: Build application
+        run: npm run build
+        env:
+          REACT_APP_API_ENDPOINT_ACCUWEATHER: ${{ secrets.REACT_APP_API_ENDPOINT_ACCUWEATHER }}
+          REACT_APP_API_KEY_ACCUWEATHER: ${{ secrets.REACT_APP_API_KEY_ACCUWEATHER }}
+          REACT_APP_API_ENDPOINT_HERE: ${{ secrets.REACT_APP_API_ENDPOINT_HERE }}
+          REACT_APP_API_KEY_HERE: ${{ secrets.REACT_APP_API_KEY_HERE }}
+          REACT_APP_API_ENDPOINT_OPENWEATHERMAP: ${{ secrets.REACT_APP_API_ENDPOINT_OPENWEATHERMAP }}
+          REACT_APP_API_KEY_OPENWEATHERMAP: ${{ secrets.REACT_APP_API_KEY_OPENWEATHERMAP }}
+          REACT_APP_API_ENDPOINT_UNSPLASH: ${{ secrets.REACT_APP_API_ENDPOINT_UNSPLASH }}
+          REACT_APP_API_KEY_UNSPLASH: ${{ secrets.REACT_APP_API_KEY_UNSPLASH }}
+      - name: Save the build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build/
+  package:
+    runs-on: macos-latest
+    needs:
+      - build
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm i
+      - name: Restore the build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build/
+      - name: Package application
+        run: npm run package
+      - name: Save the package
+        uses: actions/upload-artifact@v2
+        with:
+          name: package-mac
+          path: dist/Day Day Weather Forecast-1.0.0.dmg

@@ -1,0 +1,48 @@
+name: CI
+on:
+  - push
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm i
+      - name: Run tests
+        run: npm run test
+        env:
+          REACT_APP_API_ENDPOINT_ACCUWEATHER: ${{ secrets.REACT_APP_API_ENDPOINT_ACCUWEATHER }}
+          REACT_APP_API_KEY_ACCUWEATHER: ${{ secrets.REACT_APP_API_KEY_ACCUWEATHER }}
+          REACT_APP_API_ENDPOINT_HERE: ${{ secrets.REACT_APP_API_ENDPOINT_HERE }}
+          REACT_APP_API_KEY_HERE: ${{ secrets.REACT_APP_API_KEY_HERE }}
+          REACT_APP_API_ENDPOINT_OPENWEATHERMAP: ${{ secrets.REACT_APP_API_ENDPOINT_OPENWEATHERMAP }}
+          REACT_APP_API_KEY_OPENWEATHERMAP: ${{ secrets.REACT_APP_API_KEY_OPENWEATHERMAP }}
+          REACT_APP_API_ENDPOINT_UNSPLASH: ${{ secrets.REACT_APP_API_ENDPOINT_UNSPLASH }}
+          REACT_APP_API_KEY_UNSPLASH: ${{ secrets.REACT_APP_API_KEY_UNSPLASH }}
+      - name: Save coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage/
+  scan:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Restore coverage report
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+          path: coverage/
+      - name: Run SonarCloud scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
