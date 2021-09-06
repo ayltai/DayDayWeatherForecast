@@ -125,7 +125,13 @@ export const Currently = props => {
             <Selector
                 tooltip={props.location.displayName}
                 onClick={() => props.onSelectLocation && props.onSelectLocation()}>
-                {props.location.displayName}
+                <Box
+                    margin={-0.5}
+                    overflow='hidden'
+                    textOverflow='ellipsis'
+                    whiteSpace='nowrap'>
+                    <StyledLabel noShadow={props.noShadow}>{props.location.displayName}</StyledLabel>
+                </Box>
             </Selector>
             <Box
                 marginLeft={1}
