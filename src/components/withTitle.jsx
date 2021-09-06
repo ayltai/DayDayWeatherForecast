@@ -6,20 +6,23 @@ import { TitleBar, } from './TitleBar';
 
 export const withTitle = WrappedComponent => {
     const WithTitle = props => {
-        const { title, ...rest } = props;
+        const { action, title, ...rest } = props;
 
         const { t, } = useTranslation();
 
         return (
             <>
-                <TitleBar title={t(title)} />
+                <TitleBar
+                    title={t(title)}
+                    action={action} />
                 <WrappedComponent {...rest} />
             </>
         );
     };
 
     WithTitle.propTypes = {
-        title : PropTypes.string,
+        title  : PropTypes.string,
+        action : PropTypes.node,
     };
 
     return WithTitle;

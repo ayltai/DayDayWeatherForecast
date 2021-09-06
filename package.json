@@ -28,9 +28,10 @@
         "build": "cross-env SKIP_PREFLIGHT_CHECK=true craco build",
         "package": "electron-builder build --mac --publish never",
         "pretest": "cross-env eslint src/**/*.{js,jsx} public/**/*.js",
-        "test": "cross-env npm run test:app && cross-env npm run test:e2e && cross-env node ./scripts/mergeCoverage.js",
+        "coverage": "cross-env node ./scripts/mergeCoverage.js",
+        "test": "cross-env npm run test:app && cross-env npm run test:e2e && npm run coverage",
         "test:app": "cross-env SKIP_PREFLIGHT_CHECK=true craco test --coverage --coverageDirectory=./coverage-app --watchAll=false --collectCoverageFrom='[\"src/**/*.{js,jsx}\", \"!src/utils/TestHelpers.jsx\", \"!src/stories/**/*\"]' --testPathIgnorePatterns=src/stories",
-        "test:e2e": "pm2 start npm -- start && cypress run && pm2 delete 0",
+        "test:e2e": "cross-env pm2 start npm -- start && cypress run && pm2 delete 0",
         "storybook": "start-storybook -p 6006 -s public",
         "build-storybook": "build-storybook -s public"
     },

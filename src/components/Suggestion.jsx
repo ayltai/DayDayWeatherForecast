@@ -20,6 +20,7 @@ export const Suggestion = props => {
 
     return (
         <Autocomplete
+            role='searchbox'
             freeSolo
             autoComplete
             clearOnEscape

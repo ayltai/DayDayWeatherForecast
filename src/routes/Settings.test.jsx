@@ -19,7 +19,7 @@ describe('<Settings />', () => {
     it('renders correctly', () => {
         render(component);
 
-        expect(screen.getByText('Locations')).toBeInTheDocument();
+        expect(screen.getByText('Weather provider')).toBeInTheDocument();
     });
 
     it('shows a confirmation dialog when "Reset settings" action is clicked', async () => {

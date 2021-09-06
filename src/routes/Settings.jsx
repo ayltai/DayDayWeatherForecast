@@ -1,5 +1,4 @@
-import { Dialog, DialogContent, DialogTitle, List, } from '@material-ui/core';
-import { Add, } from '@material-ui/icons';
+import { List, } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
@@ -10,9 +9,7 @@ import { ChoicePreference, } from '../components/preferences/ChoicePreference';
 import { ConfirmationPreference, } from '../components/preferences/ConfirmationPreference';
 import { Preference, } from '../components/preferences/Preference';
 import { PreferenceTitle, } from '../components/preferences/PreferenceTitle';
-import { Action, } from '../components/Action';
 import { Confirmation, } from '../components/Confirmation';
-import { LocationSuggestion, } from '../components/LocationSuggestion';
 import { Notification, } from '../components/Notification';
 import { withTitle, } from '../components/withTitle';
 import { AppThemeContext, } from '../contexts/AppThemeContext';
@@ -24,7 +21,6 @@ import { Constants, } from '../Constants';
 const SettingsRoot = props => {
     const { theme, setTheme, } = React.useContext(AppThemeContext);
 
-    const [ open,                setOpen,                ] = React.useState(false);
     const [ notification,        setNotification,        ] = React.useState(false);
     const [ notificationMessage, setNotificationMessage, ] = React.useState('');
     const [ confirmation,        setConfirmation,        ] = React.useState(false);
@@ -33,7 +29,6 @@ const SettingsRoot = props => {
 
     const [ weatherProvider,   setWeatherProvider,   ] = usePersistentState(Preferences.getWeatherProvider(), Preferences.KEY_WEATHER_PROVIDER);
     const [ locationProvider,  setLocationProvider,  ] = usePersistentState(Preferences.getLocationProvider(), Preferences.KEY_LOCATION_PROVIDER);
-    const [ locations,         setLocations,         ] = usePersistentState(Preferences.getLocations(), Preferences.KEY_LOCATIONS);
     const [ refreshInterval,   setRefreshInterval,   ] = usePersistentState(Preferences.getRefreshInterval(), Preferences.KEY_REFRESH_INTERVAL);
     const [ autoLaunch,        setAutoLaunch,        ] = usePersistentState(Preferences.isAutoLaunch(), Preferences.KEY_IS_AUTO_LAUNCH);
     const [ unit,              setUnit,              ] = usePersistentState(Preferences.getUnit(), Preferences.KEY_UNIT);
@@ -50,41 +45,8 @@ const SettingsRoot = props => {
 
     return (
         <>
-            <Dialog
-                role='dialog'
-                fullWidth
-                maxWidth='xl'
-                open={open}
-                onClose={() => setOpen(false)}>
-                <DialogTitle>{t('Add Location')}</DialogTitle>
-                <DialogContent>
-                    <LocationSuggestion
-                        providerId={props.locationProviderId}
-                        apiKey={props.locationApiKey}
-                        onSelect={selectedLocation => {
-                            if (!locations.map(location => location.name).includes(selectedLocation.name)) {
-                                const newLocations = [ ...locations, ];
-                                newLocations.push(selectedLocation);
-
-                                setLocations(newLocations);
-
-                                setOpen(false);
-                            }
-                        }} />
-                </DialogContent>
-            </Dialog>
             <List role='list'>
                 <PreferenceTitle title='General' />
-                <Preference
-                    title='Locations'
-                    description={`${locations.length} ${t(`location${locations.length > 1 ? 's' : ''}`)}`}
-                    secondaryAction={
-                        <Action
-                            tooltip='Add location'
-                            icon={<Add />}
-                            onClick={() => setOpen(true)} />
-                    }
-                    onClick={() => props.history.push('/settings/locations')} />
                 <ChoicePreference
                     title='Refresh interval'
                     description={refreshInterval.label}
@@ -115,7 +77,7 @@ const SettingsRoot = props => {
                     }} />
                 <ChoicePreference
                     title='Weather provider'
-                    description={Constants.WEATHER_PROVIDERS[weatherProvider.id].name}
+                    description={Constants.WEATHER_PROVIDERS[weatherProvider.id].label}
                     value={weatherProvider}
                     choices={Constants.WEATHER_PROVIDERS}
                     onChange={value => {
@@ -126,7 +88,7 @@ const SettingsRoot = props => {
                     }} />
                 <ChoicePreference
                     title='Location provider'
-                    description={Constants.LOCATION_PROVIDERS[locationProvider.id].name}
+                    description={Constants.LOCATION_PROVIDERS[locationProvider.id].label}
                     value={locationProvider}
                     choices={Constants.LOCATION_PROVIDERS}
                     onChange={value => {
@@ -259,9 +221,7 @@ const SettingsRoot = props => {
 export const Settings = withRouter(withTitle(SettingsRoot));
 
 Settings.propTypes = {
-    title              : PropTypes.string,
-    locationProviderId : PropTypes.number.isRequired,
-    locationApiKey     : PropTypes.string.isRequired,
+    title : PropTypes.string,
 };
 
 SettingsRoot.propTypes = {

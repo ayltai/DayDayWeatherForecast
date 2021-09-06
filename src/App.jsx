@@ -7,7 +7,7 @@ import { AppThemeProvider, } from './contexts/AppThemeProvider';
 import { Preferences, } from './models/Preferences';
 import { About, } from './routes/About';
 import { Home, } from './routes/Home';
-import { Locations, } from './routes/Locations';
+import { LocationSelection, } from './routes/LocationSelection';
 import { Settings, } from './routes/Settings';
 import { Constants, } from './Constants';
 import logo from './logo.png';
@@ -28,13 +28,13 @@ const AppRoot = () => {
                 <Route
                     exact
                     path='/settings'>
-                    <Settings
-                        title='Settings'
-                        locationProviderId={weatherProvider.id}
-                        locationApiKey={weatherProvider.apiKey} />
+                    <Settings title='Settings' />
                 </Route>
                 <Route path='/settings/locations'>
-                    <Locations title='Locations' />
+                    <LocationSelection
+                        title='Locations'
+                        locationProviderId={weatherProvider.id}
+                        locationApiKey={weatherProvider.apiKey} />
                 </Route>
                 <Route path='/about'>
                     <About

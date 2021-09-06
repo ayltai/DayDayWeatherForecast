@@ -12,6 +12,7 @@ import { UnitHelpers, } from '../../utils/UnitHelpers';
 import { WeatherHelpers, } from '../../utils/WeatherHelpers';
 import { Constants, } from '../../Constants';
 import { Label, } from '../Label';
+import { Selector, } from '../Selector';
 import { Temperature, } from '../Temperature';
 
 const useStyles = makeStyles(theme => ({
@@ -121,11 +122,14 @@ export const Currently = props => {
             height={180}
             overflow='hidden'>
             <div className={classes.background} />
+            <Selector
+                tooltip={props.location.displayName}
+                onClick={() => props.onSelectLocation && props.onSelectLocation()}>
+                {props.location.displayName}
+            </Selector>
             <Box
-                marginTop={1}
                 marginLeft={1}
                 marginRight={1}>
-                <StyledLabel noShadow={props.noShadow}>{props.location.displayName}</StyledLabel>
                 <StyledLabel noShadow={props.noShadow}>{summaryCurrently}</StyledLabel>
             </Box>
             <Grid
@@ -222,4 +226,5 @@ Currently.propTypes = {
     uvIndexPrefix         : PropTypes.node,
     uvIndex               : PropTypes.number,
     noShadow              : PropTypes.bool,
+    onSelectLocation      : PropTypes.func,
 };

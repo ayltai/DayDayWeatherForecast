@@ -35,10 +35,10 @@ export const ChartWrapper = props => {
                 options : {
                     layout : {
                         padding : {
-                            left   : theme.spacing(1.5),
-                            right  : theme.spacing(1.5),
-                            top    : theme.spacing(1),
-                            bottom : theme.spacing(1),
+                            left   : theme.spacing(1),
+                            right  : theme.spacing(1),
+                            top    : theme.spacing(0.5),
+                            bottom : theme.spacing(0.5),
                         },
                     },
                     ...props.options,

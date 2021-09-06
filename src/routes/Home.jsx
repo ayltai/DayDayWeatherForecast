@@ -212,7 +212,8 @@ const HomeRoot = props => {
                     windSpeedPrefix={<FontIcon className='fas fa-wind' />}
                     windSpeed={weather?.currently?.windSpeed}
                     uvIndexPrefix={<FontIcon className='fas fa-sun' />}
-                    uvIndex={weather?.currently?.uvIndex} />
+                    uvIndex={weather?.currently?.uvIndex}
+                    onSelectLocation={() => props.history.push('/settings/locations')} />
             )}
             {!weather?.hourly && createDummyCurrently()}
             {weather?.hourly && (
