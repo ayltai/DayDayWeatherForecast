@@ -50,7 +50,7 @@ const AboutRoot = props => {
     );
 };
 
-export const About = withTitle(AboutRoot);
+export const About = React.memo(withTitle(AboutRoot));
 
 About.propTypes = {
     title   : PropTypes.string,

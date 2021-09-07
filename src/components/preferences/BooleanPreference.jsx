@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Preference, } from './Preference';
 
-export const BooleanPreference = props => (
+const BooleanPreferenceRoot = props => (
     <Preference
         {...props}
         secondaryAction={
@@ -14,8 +14,12 @@ export const BooleanPreference = props => (
         } />
 );
 
-BooleanPreference.propTypes = {
+BooleanPreferenceRoot.propTypes = {
     ...Preference.propTypes,
     checked  : PropTypes.bool,
     onChange : PropTypes.func,
 };
+
+export const BooleanPreference = React.memo(BooleanPreferenceRoot);
+
+BooleanPreference.propTypes = BooleanPreferenceRoot.propTypes;

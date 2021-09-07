@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const Selector = props => {
+const SelectorRoot = props => {
     const classes = useStyles();
 
     const { t, } = useTranslation();
@@ -31,12 +31,17 @@ export const Selector = props => {
     );
 };
 
-Selector.propTypes = {
+SelectorRoot.propTypes = {
     children : PropTypes.node,
     tooltip  : PropTypes.string,
     onClick  : PropTypes.func,
 };
 
-Selector.defaultProps = {
+SelectorRoot.defaultProps = {
     tooltip : '',
 };
+
+export const Selector = React.memo(SelectorRoot);
+
+Selector.propTypes    = SelectorRoot.propTypes;
+Selector.defaultProps = SelectorRoot.defaultProps;

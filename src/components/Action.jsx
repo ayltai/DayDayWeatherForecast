@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export const Action = props => {
+const ActionRoot = props => {
     const classes = useStyles();
 
     const { t, } = useTranslation();
@@ -27,7 +27,7 @@ export const Action = props => {
     );
 };
 
-Action.propTypes = {
+ActionRoot.propTypes = {
     tooltip : PropTypes.string,
     icon    : PropTypes.node.isRequired,
     edge    : PropTypes.oneOf([
@@ -37,6 +37,11 @@ Action.propTypes = {
     onClick : PropTypes.func,
 };
 
-Action.defaultProps = {
+ActionRoot.defaultProps = {
     tooltip : '',
 };
+
+export const Action = React.memo(ActionRoot);
+
+Action.propTypes    = ActionRoot.propTypes;
+Action.defaultProps = ActionRoot.defaultProps;

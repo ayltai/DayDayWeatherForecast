@@ -5,7 +5,7 @@ import React from 'react';
 
 const nodeId = '#font-awesome-css';
 
-export const FontIcon = props => {
+const FontIconRoot = props => {
     React.useEffect(() => {
         if (!document.querySelector(nodeId)) {
             const node = loadCSS('https://use.fontawesome.com/releases/v5.15.3/css/all.css', document.querySelector(nodeId));
@@ -22,7 +22,7 @@ export const FontIcon = props => {
     );
 };
 
-FontIcon.propTypes = {
+FontIconRoot.propTypes = {
     className : PropTypes.string.isRequired,
     size      : PropTypes.oneOf([
         'medium',
@@ -30,6 +30,11 @@ FontIcon.propTypes = {
     ]),
 };
 
-FontIcon.defaultProps = {
+FontIconRoot.defaultProps = {
     size : 'small',
 };
+
+export const FontIcon = React.memo(FontIconRoot);
+
+FontIcon.propTypes    = FontIconRoot.propTypes;
+FontIcon.defaultProps = FontIconRoot.defaultProps;

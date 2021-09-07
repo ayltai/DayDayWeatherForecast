@@ -1,12 +1,12 @@
 import { Box, Grid, } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Constants } from '../Constants';
 
 import { UnitHelpers, } from '../utils/UnitHelpers';
+import { Constants } from '../Constants';
 import { Label, } from './Label';
 
-export const Temperature = props => {
+const TemperatureRoot = props => {
     const temperature = Number(props.children || 0);
     const unit        = props.unit || Constants.UNITS[0].value;
 
@@ -25,7 +25,7 @@ export const Temperature = props => {
     );
 };
 
-Temperature.propTypes = {
+TemperatureRoot.propTypes = {
     children  : PropTypes.number,
     prefix    : PropTypes.node,
     digits    : PropTypes.number,
@@ -34,7 +34,12 @@ Temperature.propTypes = {
     ...Label.propTypes,
 };
 
-Temperature.defaultProps = {
+TemperatureRoot.defaultProps = {
     digits    : 1,
     noTooltip : false,
 };
+
+export const Temperature = React.memo(TemperatureRoot);
+
+Temperature.propTypes    = TemperatureRoot.propTypes;
+Temperature.defaultProps = TemperatureRoot.defaultProps;

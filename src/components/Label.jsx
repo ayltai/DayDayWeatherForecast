@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export const Label = props => {
+const LabelRoot = props => {
     const classes = useStyles();
 
     const { t, } = useTranslation();
@@ -37,7 +37,7 @@ export const Label = props => {
     );
 };
 
-Label.propTypes = {
+LabelRoot.propTypes = {
     className : PropTypes.string,
     children  : PropTypes.node,
     tooltip   : PropTypes.node,
@@ -82,7 +82,7 @@ Label.propTypes = {
     ]),
 };
 
-Label.defaultProps = {
+LabelRoot.defaultProps = {
     tooltip  : '',
     align    : 'inherit',
     color    : 'textPrimary',
@@ -91,3 +91,8 @@ Label.defaultProps = {
     noShadow : false,
     variant  : 'body1',
 };
+
+export const Label = React.memo(LabelRoot);
+
+Label.propTypes    = LabelRoot.propTypes;
+Label.defaultProps = LabelRoot.defaultProps;

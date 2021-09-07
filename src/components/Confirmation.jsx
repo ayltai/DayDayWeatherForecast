@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
 
-export const Confirmation = props => {
+const ConfirmationRoot = props => {
     const { t, } = useTranslation();
 
     const handleClick = response => {
@@ -39,7 +39,7 @@ export const Confirmation = props => {
     );
 };
 
-Confirmation.propTypes = {
+ConfirmationRoot.propTypes = {
     title          : PropTypes.string.isRequired,
     message        : PropTypes.string.isRequired,
     positiveAction : PropTypes.string,
@@ -49,7 +49,12 @@ Confirmation.propTypes = {
     onResponse     : PropTypes.func,
 };
 
-Confirmation.defaultProps = {
+ConfirmationRoot.defaultProps = {
     positiveAction : 'Yes',
     negativeAction : 'No',
 };
+
+export const Confirmation = React.memo(ConfirmationRoot);
+
+Confirmation.propTypes    = ConfirmationRoot.propTypes;
+Confirmation.defaultProps = ConfirmationRoot.defaultProps;

@@ -6,7 +6,7 @@ import { Action, } from '../components/Action';
 import { Choices, } from '../components/Choices';
 import { withTitle, } from '../components/withTitle';
 
-const SelectionRoot = props => {
+const SelectionBase = props => {
     return (
         <Choices
             icon={<Check />}
@@ -23,10 +23,10 @@ const SelectionRoot = props => {
     );
 };
 
-const SelectionBase = withTitle(SelectionRoot);
+const TitledSelection = withTitle(SelectionBase);
 
-export const Selection = props => (
-    <SelectionBase
+const SelectionRoot = props => (
+    <TitledSelection
         action={
             <Action
                 tooltip='Add'
@@ -37,7 +37,7 @@ export const Selection = props => (
         {...props} />
 );
 
-Selection.propTypes = {
+SelectionRoot.propTypes = {
     title     : PropTypes.string,
     value     : PropTypes.shape({
         label : PropTypes.string,
@@ -52,11 +52,15 @@ Selection.propTypes = {
     onDelete  : PropTypes.func,
 };
 
-SelectionBase.propTypes = {
+TitledSelection.propTypes = {
     action    : PropTypes.node,
-    ...Selection.propTypes,
+    ...SelectionRoot.propTypes,
 };
 
-SelectionRoot.propTypes = {
-    ...SelectionBase.propTypes,
+SelectionBase.propTypes = {
+    ...TitledSelection.propTypes,
 };
+
+export const Selection = React.memo(SelectionRoot);
+
+Selection.propTypes = SelectionRoot.propTypes;

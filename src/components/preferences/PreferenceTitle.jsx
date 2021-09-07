@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
 
-export const PreferenceTitle = props => {
+const PreferenceTitleRoot = props => {
     const { t, } = useTranslation();
 
     return (
@@ -19,7 +19,11 @@ export const PreferenceTitle = props => {
     );
 };
 
-PreferenceTitle.propTypes = {
+PreferenceTitleRoot.propTypes = {
     title   : PropTypes.string.isRequired,
     divider : PropTypes.bool,
 };
+
+export const PreferenceTitle = React.memo(PreferenceTitleRoot);
+
+PreferenceTitle.propTypes = PreferenceTitleRoot.propTypes;

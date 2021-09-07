@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
 
-export const Choices = props => {
+const ChoicesRoot = props => {
     const { t, } = useTranslation();
 
     return (
@@ -29,7 +29,7 @@ export const Choices = props => {
     );
 };
 
-Choices.propTypes = {
+ChoicesRoot.propTypes = {
     className : PropTypes.string,
     icon      : PropTypes.node,
     action    : PropTypes.node,
@@ -45,6 +45,11 @@ Choices.propTypes = {
     onAction  : PropTypes.func,
 };
 
-Choices.defaultProps = {
+ChoicesRoot.defaultProps = {
     choices : [],
 };
+
+export const Choices = React.memo(ChoicesRoot);
+
+Choices.propTypes    = ChoicesRoot.propTypes;
+Choices.defaultProps = ChoicesRoot.defaultProps;
