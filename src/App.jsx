@@ -1,7 +1,7 @@
 import { CssBaseline, } from '@material-ui/core';
 import React from 'react';
 import { withTranslation, } from 'react-i18next';
-import { Route, Switch, } from 'react-router-dom';
+import { Route, Routes, } from 'react-router-dom';
 
 import { AppThemeProvider, } from './contexts/AppThemeProvider';
 import { Preferences, } from './models/Preferences';
@@ -19,31 +19,31 @@ const AppRoot = () => {
     return (
         <AppThemeProvider>
             <CssBaseline />
-            <Switch>
+            <Routes>
                 <Route
-                    exact
-                    path='/'>
-                    <Home />
-                </Route>
+                    path='/'
+                    element={<Home />} />
                 <Route
-                    exact
-                    path='/settings'>
-                    <Settings title='Settings' />
-                </Route>
-                <Route path='/settings/locations'>
-                    <LocationSelection
-                        title='Locations'
-                        locationProviderId={weatherProvider.id}
-                        locationApiKey={weatherProvider.apiKey} />
-                </Route>
-                <Route path='/about'>
-                    <About
-                        title='About'
-                        appName={Constants.APP_NAME}
-                        version={Constants.APP_VERSION}
-                        logo={logo} />
-                </Route>
-            </Switch>
+                    path='/settings'
+                    element={<Settings title='Settings' />} />
+                <Route
+                    path='/settings/locations'
+                    element={
+                        <LocationSelection
+                            title='Locations'
+                            locationProviderId={weatherProvider.id}
+                            locationApiKey={weatherProvider.apiKey} />
+                    } />
+                <Route
+                    path='/about'
+                    element={
+                        <About
+                            title='About'
+                            appName={Constants.APP_NAME}
+                            version={Constants.APP_VERSION}
+                            logo={logo} />
+                    } />
+            </Routes>
         </AppThemeProvider>
     );
 };

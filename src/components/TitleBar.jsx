@@ -3,8 +3,8 @@ import { ArrowBackIos, } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
-import { withRouter, } from 'react-router-dom';
 
+import { withRouter, } from '../hooks/withRouter';
 import { Action, } from './Action';
 
 const useStyles = makeStyles(() => ({
@@ -31,7 +31,7 @@ const TitleBarRoot = props => {
                         tooltip='Back'
                         edge='start'
                         icon={<ArrowBackIos />}
-                        onClick={() => props.history.goBack()} />
+                        onClick={() => props.navigate(-1)} />
                     <Typography
                         className={classes.title}
                         variant='h6'

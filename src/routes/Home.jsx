@@ -6,7 +6,6 @@ import path from 'path';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
-import { withRouter, } from 'react-router-dom';
 
 import { UnsplashApiClient, } from '../apis/UnsplashApiClient';
 import { WeatherApiClient, } from '../apis/WeatherApiClient';
@@ -17,6 +16,7 @@ import { Daily, } from '../components/weather/Daily';
 import { Hourly, } from '../components/weather/Hourly';
 import { useInterval, } from '../hooks/useInterval';
 import { usePersistentState, } from '../hooks/usePersistentState';
+import { withRouter, } from '../hooks/withRouter';
 import { Preferences, } from '../models/Preferences';
 import { AppHelpers } from '../utils/AppHelpers';
 import { DateTimeHelpers, } from '../utils/DateTimeHelpers';

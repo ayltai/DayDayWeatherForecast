@@ -2,7 +2,6 @@ import { List, } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useTranslation, } from 'react-i18next';
-import { withRouter, } from 'react-router-dom';
 
 import { BooleanPreference, } from '../components/preferences/BooleanPreference';
 import { ChoicePreference, } from '../components/preferences/ChoicePreference';
@@ -14,6 +13,7 @@ import { Notification, } from '../components/Notification';
 import { withTitle, } from '../components/withTitle';
 import { AppThemeContext, } from '../contexts/AppThemeContext';
 import { usePersistentState } from '../hooks/usePersistentState';
+import { withRouter, } from '../hooks/withRouter';
 import { Preferences, } from '../models/Preferences';
 import { AppHelpers, } from '../utils/AppHelpers';
 import { Constants, } from '../Constants';
